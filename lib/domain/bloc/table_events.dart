@@ -8,8 +8,7 @@ class GetAllTablesEvent extends TableEvents {
   GetAllTablesEvent();
 }
 
-class GetAllTablesByMonthYearEvent extends TableEvents {
-  final int month;
+class GetAllTablesByYearEvent extends TableEvents {
   final int year;
-  GetAllTablesByMonthYearEvent(this.month, this.year);
+  GetAllTablesByYearEvent(this.year);
 }

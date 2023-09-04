@@ -14,17 +14,16 @@ class TableRepositoryImplementation implements TableRepositoryInterface {
     return table;
   }
 
-  // @override
-  // Future<List<TableEntities>> getAllByMonthYear(
-  //     String url, int month, int year) async {
-  //   List<TableEntities> filtered = [];
-  //   var result = await _tableDataSource.getFromApi(url);
-  //   var entities = TableModel.fromMapList(result);
-  //   for (var item in entities) {
-  //     if (item.month == month && item.year == year) {
-  //       filtered.add(item);
-  //     }
-  //   }
-  //   return filtered;
-  // }
+  @override
+  Future<List<TableEntities>> getAllByYear(String url, int year) async {
+    List<TableEntities> filtered = [];
+    var result = await _tableDataSource.getFromApi(url);
+    var entities = TableModel.fromMapList(result);
+    for (var item in entities) {
+      if (item.year == year) {
+        filtered.add(item);
+      }
+    }
+    return filtered;
+  }
 }

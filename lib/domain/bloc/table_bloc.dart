@@ -11,10 +11,10 @@ class TableBloc extends Bloc<TableEvents, TableStates> {
       final tables = await _useCaseGetAll.useGetAll();
       emit(GetAllTablesState(tables));
     });
-    //  on<GetAllTablesByMonthYearEvent>((event, emit) async {
-    //    final tables = await GetAllTablesByMonthYearState(_tableRepository
-    //        .getAll('https://api.npoint.io/fac5d9952672f587e1c1'));
-    //    emit(tables);
-    //  });
+    on<GetAllTablesByYearEvent>((event, emit) async {
+      final tables = await _useCaseGetAll.useGetAllByYear(
+          'https://api.npoint.io/fac5d9952672f587e1c1', event.year);
+      emit(GetAllTablesByYearState(tables));
+    });
   }
 }

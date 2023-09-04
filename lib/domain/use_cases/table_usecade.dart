@@ -10,4 +10,10 @@ class UseCaseGetAll {
         .getAll('https://api.npoint.io/fac5d9952672f587e1c1');
     return list;
   }
+
+  Future<List<TableEntities>> useGetAllByYear(String url, int year) async {
+    final list = await _tableRepository.getAllByYear(
+        'https://api.npoint.io/fac5d9952672f587e1c1', year);
+    return list;
+  }
 }

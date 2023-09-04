@@ -89,10 +89,10 @@ class MpTableWidget extends StatelessWidget {
 }
 
 enum HeaderTitle {
-  // position('Posição'),
-  // speciality('Especialidade'),
-  // total_vacancies('Vagas'),
-  // number_of_vacancies('Vagas Ocupadas'),
+  position('Posição'),
+  speciality('Especialidade'),
+  total_vacancies('Vagas'),
+  number_of_vacancies('Vagas Ocupadas'),
   none('');
 
   const HeaderTitle(this.title);

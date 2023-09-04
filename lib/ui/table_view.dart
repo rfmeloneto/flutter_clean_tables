@@ -20,6 +20,8 @@ class TableView extends StatefulWidget {
 
 class _TableViewState extends State<TableView> {
   late final TableBloc bloc;
+  int selectedYear = 2023;
+  int selectedMonth = 1;
 
   @override
   void initState() {
@@ -51,6 +53,23 @@ class _TableViewState extends State<TableView> {
               final tables = state.tables;
               return Column(
                 children: [
+                  DropdownButton(
+                      value: selectedYear,
+                      items: const [
+                        DropdownMenuItem(
+                          value: null,
+                          child: Text('Selecione um Ano'),
+                        ),
+                        DropdownMenuItem(value: 2023, child: Text('2023')),
+                        DropdownMenuItem(value: 2022, child: Text('2022')),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedYear = value!;
+                          bloc.add(GetAllTablesByYearEvent(value));
+                        });
+                      }),
+                  const Divider(),
                   if (tables.isNotEmpty)
                     Expanded(
                       flex: 2,
