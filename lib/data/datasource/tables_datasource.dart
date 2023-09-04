@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:table_app/domain/entities/table_entities.dart';
 
 class TableDataSource {
   final Dio _dio = Dio();

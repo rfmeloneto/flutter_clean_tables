@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:table_app/domain/bloc/table_bloc.dart';
-import 'package:table_app/domain/use_cases/table_usecade.dart';
 
 import '../data/datasource/tables_datasource.dart';
 import '../data/repository/table_repository_implementation.dart';
+import '../domain/bloc/table_bloc.dart';
 import '../domain/bloc/table_events.dart';
 import '../domain/bloc/table_states.dart';
+import '../domain/use_cases/table_usecade.dart';
+import 'mp_table_widget.dart';
 
 class TableView extends StatefulWidget {
   const TableView({super.key});
@@ -46,13 +49,29 @@ class _TableViewState extends State<TableView> {
               return const CircularProgressIndicator();
             } else if (state is GetAllTablesState) {
               final tables = state.tables;
-              return ListView.builder(
-                itemCount: tables.length,
-                itemBuilder: (context, index) => ListTile(
-                  title: Text(
-                    tables[index].position,
-                  ),
-                ),
+              return Column(
+                children: [
+                  if (tables.isNotEmpty)
+                    Expanded(
+                      flex: 2,
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: MpTableWidget(
+                              header: tables.first.json.keys.toList(),
+                              body: tables.map((e) => e.json).toList(),
+                              onTap: (int index) {
+                                print('Tapped index: $index');
+                                // final item = chartData.elementAt(index);
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               );
             }
             // Add a default return statement if needed

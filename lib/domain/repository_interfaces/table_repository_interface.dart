@@ -1,4 +1,4 @@
-import 'package:table_app/domain/entities/table_entities.dart';
+import "../entities/table_entities.dart";
 
 abstract class TableRepositoryInterface {
   Future<List<TableEntities>> getAll(String url);

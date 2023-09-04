@@ -1,8 +1,7 @@
-import 'package:table_app/data/model/table_model.dart';
-
 import '../../domain/entities/table_entities.dart';
 import '../../domain/repository_interfaces/table_repository_interface.dart';
 import '../datasource/tables_datasource.dart';
+import '../model/table_model.dart';
 
 class TableRepositoryImplementation implements TableRepositoryInterface {
   final TableDataSource _tableDataSource;

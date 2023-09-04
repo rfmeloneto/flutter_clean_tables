@@ -9,12 +9,14 @@ class TableModel extends TableEntities {
       required super.speciality,
       required super.occupiedPositions,
       required super.vacantPositions,
-      required super.totalPositions});
+      required super.totalPositions,
+      required super.json});
 
   static List<TableEntities> fromMapList(dynamic data) {
     List<TableEntities> entities = [];
     for (var item in data['collection']) {
       entities.add(TableModel(
+          json: item,
           year: item['year'],
           month: item['month'],
           position: item['position'],

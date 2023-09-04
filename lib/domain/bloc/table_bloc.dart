@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:table_app/domain/bloc/table_events.dart';
-import 'package:table_app/domain/bloc/table_states.dart';
-import 'package:table_app/domain/use_cases/table_usecade.dart';
+
+import '../use_cases/table_usecade.dart';
+import 'table_events.dart';
+import 'table_states.dart';
 
 class TableBloc extends Bloc<TableEvents, TableStates> {
   final UseCaseGetAll _useCaseGetAll;

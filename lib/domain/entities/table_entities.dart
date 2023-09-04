@@ -7,6 +7,7 @@ class TableEntities {
   final int occupiedPositions;
   final int vacantPositions;
   final int totalPositions;
+  final Map<String, dynamic> json;
 
   TableEntities(
       {required this.year,
@@ -16,5 +17,6 @@ class TableEntities {
       required this.speciality,
       required this.occupiedPositions,
       required this.vacantPositions,
-      required this.totalPositions});
+      required this.totalPositions,
+      required this.json});
 }
