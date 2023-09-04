@@ -14,7 +14,7 @@ class TableBloc extends Bloc<TableEvents, TableStates> {
     on<GetAllTablesByYearEvent>((event, emit) async {
       final tables = await _useCaseGetAll.useGetAllByYear(
           'https://api.npoint.io/fac5d9952672f587e1c1', event.year);
-      emit(GetAllTablesByYearState(tables));
+      emit(GetAllTablesState(tables));
     });
   }
 }

@@ -66,8 +66,9 @@ class _TableViewState extends State<TableView> {
                       onChanged: (value) {
                         setState(() {
                           selectedYear = value!;
-                          bloc.add(GetAllTablesByYearEvent(value));
                         });
+                        bloc.add(GetAllTablesByYearEvent(value!));
+                        print(value);
                       }),
                   const Divider(),
                   if (tables.isNotEmpty)
@@ -93,6 +94,7 @@ class _TableViewState extends State<TableView> {
                 ],
               );
             }
+
             // Add a default return statement if needed
             return Container();
           },

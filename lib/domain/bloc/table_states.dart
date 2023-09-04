@@ -10,8 +10,3 @@ class GetAllTablesState extends TableStates {
   List<TableEntities> tables;
   GetAllTablesState(this.tables);
 }
-
-class GetAllTablesByYearState extends TableStates {
-  List<TableEntities> tables;
-  GetAllTablesByYearState(this.tables);
-}
