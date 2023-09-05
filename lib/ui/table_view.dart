@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:table_app/ui/mp_pie_chart.dart';
 
 import '../data/datasource/tables_datasource.dart';
 import '../data/repository/table_repository_implementation.dart';
@@ -131,36 +132,40 @@ class _TableViewState extends State<TableView> {
                     ),
                   ),
                   const Divider(),
-                  Card(
-                    child: BlocBuilder<ChartBloc, ChartStates>(
-                      bloc: chartbloc,
-                      builder: (context, state) {
-                        final vertDivader = Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            color: Colors.black,
-                            width: 1,
-                            height: 20,
-                          ),
-                        );
-                        if (state is LoadingChartState) {
-                          return const CircularProgressIndicator();
-                        } else if (state is GetChartByYearMonth) {
-                          final map = state.map;
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(map['vagas'].toString()),
-                              vertDivader,
-                              Text(map['ocupadas'].toString()),
-                              vertDivader,
-                              Text(map['total'].toString()),
-                            ],
+                  Expanded(
+                    child: Card(
+                      child: BlocBuilder<ChartBloc, ChartStates>(
+                        bloc: chartbloc,
+                        builder: (context, state) {
+                          final vertDivader = Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              color: Colors.black,
+                              width: 1,
+                              height: 20,
+                            ),
                           );
-                        }
+                          if (state is LoadingChartState) {
+                            return const CircularProgressIndicator();
+                          } else if (state is GetChartByYearMonth) {
+                            final map = state.map;
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(map['vagas'].toString()),
+                                vertDivader,
+                                Text(map['ocupadas'].toString()),
+                                vertDivader,
+                                Text(map['total'].toString()),
+                                vertDivader,
+                                PieChartTeste(map),
+                              ],
+                            );
+                          }
 
-                        return Container();
-                      },
+                          return Container();
+                        },
+                      ),
                     ),
                   ),
                   if (tables.isNotEmpty)
