@@ -15,15 +15,36 @@ class TableRepositoryImplementation implements TableRepositoryInterface {
   }
 
   @override
-  Future<List<TableEntities>> getAllByYear(String url, int year) async {
+  Future<List<TableEntities>> getAllByYearMonth(
+      String url, int year, int month) async {
     List<TableEntities> filtered = [];
     var result = await _tableDataSource.getFromApi(url);
     var entities = TableModel.fromMapList(result);
     for (var item in entities) {
-      if (item.year == year) {
+      if (item.year == year && item.month == month) {
         filtered.add(item);
       }
     }
     return filtered;
+  }
+
+  @override
+  Future<Map<String, dynamic>> getByYearMonthPie(
+      String url, int year, int month) async {
+    Map<String, dynamic> mapVagas = {};
+    mapVagas['vagas'] = 0;
+    mapVagas['ocupadas'] = 0;
+    mapVagas['total'] = 0;
+    var result = await _tableDataSource.getFromApi(url);
+    var entities = TableModel.fromMapList(result);
+    for (var item in entities) {
+      if (item.year == year && item.month == month) {
+        mapVagas['vagas'] += item.vacantPositions;
+        mapVagas['ocupadas'] += item.occupiedPositions;
+        mapVagas['total'] += item.totalPositions;
+      }
+    }
+    print(mapVagas['vagas']);
+    return mapVagas;
   }
 }

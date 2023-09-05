@@ -1,5 +1,7 @@
 abstract class TableEvents {}
 
+abstract class ChartEvents {}
+
 class LoadingTablesEvent extends TableEvents {
   LoadingTablesEvent();
 }
@@ -8,7 +10,18 @@ class GetAllTablesEvent extends TableEvents {
   GetAllTablesEvent();
 }
 
-class GetAllTablesByYearEvent extends TableEvents {
+class GetAllTablesByYearMonthEvent extends TableEvents {
   final int year;
-  GetAllTablesByYearEvent(this.year);
+  final int month;
+  GetAllTablesByYearMonthEvent(this.year, this.month);
+}
+
+class LoadingChartEvent extends ChartEvents {
+  LoadingChartEvent();
+}
+
+class ChartEventByYearMonth extends ChartEvents {
+  final int year;
+  final int month;
+  ChartEventByYearMonth(this.year, this.month);
 }

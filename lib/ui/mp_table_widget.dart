@@ -91,8 +91,12 @@ class MpTableWidget extends StatelessWidget {
 enum HeaderTitle {
   position('Posição'),
   speciality('Especialidade'),
-  total_vacancies('Vagas'),
-  number_of_vacancies('Vagas Ocupadas'),
+  total_vacancies('Saldo de Vagas'),
+  number_of_vacancies('Número de Vagas'),
+  number_of_occupied('Vagas Ocupadas'),
+  year('Ano'),
+  month('Mês'),
+  entrancia('Entrância'),
   none('');
 
   const HeaderTitle(this.title);
@@ -103,7 +107,15 @@ enum HeaderTitle {
 enum HideValue {
   modifiedBy('modified_by'),
   modifiedAt('modified_at'),
-  createdBy('created_by_unicode');
+  createdBy('created_by_unicode'),
+  id('id'),
+  pk('pk'),
+  icons('icons'),
+  unicode('unicode'),
+  updated('updated'),
+  created_at('created_at'),
+  created_by('created_by'),
+  modified_by_unicode('modified_by_unicode');
 
   const HideValue(this.code);
 

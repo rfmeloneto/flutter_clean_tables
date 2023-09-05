@@ -5,15 +5,20 @@ class UseCaseGetAll {
   final TableRepositoryImplementation _tableRepository;
   UseCaseGetAll(this._tableRepository);
 
-  Future<List<TableEntities>> useGetAll() async {
-    final list = await _tableRepository
-        .getAll('https://api.npoint.io/fac5d9952672f587e1c1');
+  Future<List<TableEntities>> useGetAll(String url) async {
+    final list = await _tableRepository.getAll(url);
     return list;
   }
 
-  Future<List<TableEntities>> useGetAllByYear(String url, int year) async {
-    final list = await _tableRepository.getAllByYear(
-        'https://api.npoint.io/fac5d9952672f587e1c1', year);
+  Future<List<TableEntities>> useGetAllByYear(
+      String url, int year, int month) async {
+    final list = await _tableRepository.getAllByYearMonth(url, year, month);
     return list;
+  }
+
+  Future<Map<String, dynamic>> useGetByYearMonthPie(
+      String url, int year, int month) async {
+    final map = await _tableRepository.getByYearMonthPie(url, year, month);
+    return map;
   }
 }

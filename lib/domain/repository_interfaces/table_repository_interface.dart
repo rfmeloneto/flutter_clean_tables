@@ -2,5 +2,8 @@ import "../entities/table_entities.dart";
 
 abstract class TableRepositoryInterface {
   Future<List<TableEntities>> getAll(String url);
-  Future<List<TableEntities>> getAllByYear(String url, int year);
+  Future<List<TableEntities>> getAllByYearMonth(
+      String url, int year, int month);
+  Future<Map<String, dynamic>> getByYearMonthPie(
+      String url, int year, int month);
 }
