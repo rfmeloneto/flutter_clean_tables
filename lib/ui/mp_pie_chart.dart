@@ -56,7 +56,7 @@ class _PieChartTesteState extends State<PieChartTeste> {
             children: <Widget>[
               Indicator(
                 color: AppColors.contentColorBlue,
-                text: 'First',
+                text: 'Vagas',
                 isSquare: true,
               ),
               SizedBox(
@@ -64,15 +64,7 @@ class _PieChartTesteState extends State<PieChartTeste> {
               ),
               Indicator(
                 color: AppColors.contentColorYellow,
-                text: 'Second',
-                isSquare: true,
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Indicator(
-                color: AppColors.contentColorPurple,
-                text: 'Third',
+                text: 'Ocupadas',
                 isSquare: true,
               ),
               SizedBox(
@@ -89,7 +81,7 @@ class _PieChartTesteState extends State<PieChartTeste> {
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(3, (i) {
+    return List.generate(2, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 60.0 : 50.0;
@@ -99,7 +91,7 @@ class _PieChartTesteState extends State<PieChartTeste> {
           return PieChartSectionData(
             color: AppColors.contentColorBlue,
             value: widget.map['vagas'],
-            title: 'Vagas',
+            title: widget.map['vagas'].toString(),
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -112,20 +104,7 @@ class _PieChartTesteState extends State<PieChartTeste> {
           return PieChartSectionData(
             color: AppColors.contentColorYellow,
             value: widget.map['ocupadas'],
-            title: 'Ocupadas',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: AppColors.mainTextColor1,
-              shadows: shadows,
-            ),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: AppColors.contentColorPurple,
-            value: widget.map['total'],
-            title: 'Total',
+            title: widget.map['ocupadas'].toString(),
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,

@@ -34,15 +34,15 @@ class TableRepositoryImplementation implements TableRepositoryInterface {
     Map<String, dynamic> mapVagas = {};
     mapVagas['vagas'] = 0;
     mapVagas['ocupadas'] = 0;
-    mapVagas['total'] = 0;
+    mapVagas['saldo'] = 0;
     var result = await _tableDataSource.getFromApi(url);
     var entities = TableModel.fromMapList(result);
     for (var item in entities) {
       if (item.year == year && item.month == month) {
         mapVagas['vagas'] += item.vacantPositions;
         mapVagas['ocupadas'] += item.occupiedPositions;
-        mapVagas['total'] += item.totalPositions;
       }
+      mapVagas['saldo'] = mapVagas['ocupadas'] - mapVagas['vagas'];
     }
     print(mapVagas['vagas']);
     return mapVagas;

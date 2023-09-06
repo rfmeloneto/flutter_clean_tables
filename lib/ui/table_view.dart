@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:table_app/ui/mp_bar_chart.dart';
 import 'package:table_app/ui/mp_pie_chart.dart';
 
 import '../data/datasource/tables_datasource.dart';
@@ -31,7 +33,8 @@ class _TableViewState extends State<TableView> {
         UseCaseGetAll(TableRepositoryImplementation(TableDataSource())));
     chartbloc = ChartBloc(
         UseCaseGetAll(TableRepositoryImplementation(TableDataSource())));
-    bloc.add(GetAllTablesEvent());
+    bloc.add(GetAllTablesByYearMonthEvent(selectedYear, selectedMonth));
+    chartbloc.add(ChartEventByYearMonth(selectedYear, selectedMonth));
     super.initState();
   }
 
@@ -58,7 +61,7 @@ class _TableViewState extends State<TableView> {
                     height: 100,
                     width: double.infinity,
                     child: Card(
-                      color: Colors.amber,
+                      color: Colors.blue,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -132,52 +135,80 @@ class _TableViewState extends State<TableView> {
                     ),
                   ),
                   const Divider(),
-                  Expanded(
-                    child: Card(
-                      child: BlocBuilder<ChartBloc, ChartStates>(
-                        bloc: chartbloc,
-                        builder: (context, state) {
-                          final vertDivader = Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 20,
+                  BlocBuilder<ChartBloc, ChartStates>(
+                    bloc: chartbloc,
+                    builder: (context, state) {
+                      final vertDivader = Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          color: Colors.black,
+                          width: 1,
+                          height: 20,
+                        ),
+                      );
+                      if (state is LoadingChartState) {
+                        return const CircularProgressIndicator();
+                      } else if (state is GetChartByYearMonth) {
+                        final map = state.map;
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 100, right: 100),
+                          child: Expanded(
+                            child: SizedBox(
+                              height: 300,
+                              child: Row(
+                                children: [
+                                  Card(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 32.0),
+                                          child: Row(
+                                            children: [
+                                              Text(map['vagas'].toString()),
+                                              vertDivader,
+                                              Text(map['ocupadas'].toString()),
+                                              vertDivader,
+                                              Text(map['saldo'].toString()),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(child: PieChartTeste(map)),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 300,
+                                      child: Card(
+                                        child: BarChartSample1(map),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          );
-                          if (state is LoadingChartState) {
-                            return const CircularProgressIndicator();
-                          } else if (state is GetChartByYearMonth) {
-                            final map = state.map;
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(map['vagas'].toString()),
-                                vertDivader,
-                                Text(map['ocupadas'].toString()),
-                                vertDivader,
-                                Text(map['total'].toString()),
-                                vertDivader,
-                                PieChartTeste(map),
-                              ],
-                            );
-                          }
+                          ),
+                        );
+                      }
 
-                          return Container();
-                        },
-                      ),
-                    ),
+                      return Container();
+                    },
                   ),
                   if (tables.isNotEmpty)
                     Expanded(
                       flex: 2,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(24),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20, left: 100, right: 100),
+                        child: Card(
                           child: SizedBox(
                             width: double.infinity,
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(
+                                  top: 20, left: 50, right: 50),
                               child: MpTableWidget(
                                 header: tables.first.json.keys.toList(),
                                 body: tables.map((e) => e.json).toList(),
