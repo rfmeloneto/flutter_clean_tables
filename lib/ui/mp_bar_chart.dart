@@ -112,7 +112,7 @@ class BarChartSample1State extends State<BarChartSample1> {
           borderRadius: const BorderRadius.all(Radius.circular(4)),
           toY: isTouched ? y + 1 : y,
           color: isTouched ? widget.touchedBarColor : barColor,
-          width: 200,
+          width: 100,
           borderSide: isTouched
               ? BorderSide(color: widget.touchedBarColor.darken(80))
               : const BorderSide(color: Colors.white, width: 0),

@@ -5,5 +5,5 @@ abstract class TableRepositoryInterface {
   Future<List<TableEntities>> getAllByYearMonth(
       String url, int year, int month);
   Future<Map<String, dynamic>> getByYearMonthPie(
-      String url, int year, int month);
+      String url, String entrancia, int year, int month);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_app/ui/table_view%20cell.dart';
 import 'package:table_app/ui/table_view.dart';
 
 void main() {
@@ -10,10 +11,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final screenSize = MediaQuery.of(context).size;
+    const breakpointWidth = 200.0;
+    final Widget selectedPage = screenSize.width < breakpointWidth
+        ? const TableViewCell()
+        : const TableView();
+
+    return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: TableView(),
+          child: selectedPage,
         ),
       ),
     );

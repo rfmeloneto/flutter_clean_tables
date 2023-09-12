@@ -26,6 +26,7 @@ class _TableViewState extends State<TableView> {
   late final ChartBloc chartbloc;
   int selectedYear = 2023;
   int selectedMonth = 1;
+  String entrancia = 'todas';
 
   @override
   void initState() {
@@ -34,7 +35,8 @@ class _TableViewState extends State<TableView> {
     chartbloc = ChartBloc(
         UseCaseGetAll(TableRepositoryImplementation(TableDataSource())));
     bloc.add(GetAllTablesByYearMonthEvent(selectedYear, selectedMonth));
-    chartbloc.add(ChartEventByYearMonth(selectedYear, selectedMonth));
+    chartbloc
+        .add(ChartEventByYearMonth(entrancia, selectedYear, selectedMonth));
     super.initState();
   }
 
@@ -122,12 +124,39 @@ class _TableViewState extends State<TableView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
+                          child: DropdownButton(
+                              value: entrancia,
+                              items: const [
+                                DropdownMenuItem(
+                                  value: null,
+                                  child: Text('Selecione uma Entrância'),
+                                ),
+                                DropdownMenuItem(
+                                    value: "todas", child: Text('Todas')),
+                                DropdownMenuItem(
+                                    value: "Primeira Entrância",
+                                    child: Text('Primeira Entrância')),
+                                DropdownMenuItem(
+                                    value: "Segunda Entrância",
+                                    child: Text('Segunda Entrância')),
+                                DropdownMenuItem(
+                                    value: "Terceira Entrância",
+                                    child: Text('Terceira Entrância')),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  entrancia = value!;
+                                });
+                              }),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
                               onPressed: () {
                                 bloc.add(GetAllTablesByYearMonthEvent(
                                     selectedYear, selectedMonth));
                                 chartbloc.add(ChartEventByYearMonth(
-                                    selectedYear, selectedMonth));
+                                    entrancia, selectedYear, selectedMonth));
                               },
                               child: const Text('Pesquisar')),
                         )

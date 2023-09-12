@@ -30,7 +30,7 @@ class TableRepositoryImplementation implements TableRepositoryInterface {
 
   @override
   Future<Map<String, dynamic>> getByYearMonthPie(
-      String url, int year, int month) async {
+      String url, String entrancia, int year, int month) async {
     Map<String, dynamic> mapVagas = {};
     mapVagas['vagas'] = 0;
     mapVagas['ocupadas'] = 0;
@@ -38,11 +38,24 @@ class TableRepositoryImplementation implements TableRepositoryInterface {
     var result = await _tableDataSource.getFromApi(url);
     var entities = TableModel.fromMapList(result);
     for (var item in entities) {
-      if (item.year == year && item.month == month) {
-        mapVagas['vagas'] += item.vacantPositions;
-        mapVagas['ocupadas'] += item.occupiedPositions;
+      if (entrancia == 'todas') {
+        if (item.year == year &&
+            item.month == month &&
+            item.speciality == '-') {
+          mapVagas['vagas'] += item.vacantPositions;
+          mapVagas['ocupadas'] += item.occupiedPositions;
+        }
+      } else if (entrancia != 'todas') {
+        if (item.entrancia == entrancia &&
+            item.year == year &&
+            item.month == month &&
+            item.speciality == '-') {
+          mapVagas['vagas'] += item.vacantPositions;
+          mapVagas['ocupadas'] += item.occupiedPositions;
+        }
       }
-      mapVagas['saldo'] = mapVagas['ocupadas'] - mapVagas['vagas'];
+
+      mapVagas['saldo'] = mapVagas['vagas'] - mapVagas['ocupadas'];
     }
     print(mapVagas['vagas']);
     return mapVagas;

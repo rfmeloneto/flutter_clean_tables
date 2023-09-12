@@ -21,7 +21,8 @@ class LoadingChartEvent extends ChartEvents {
 }
 
 class ChartEventByYearMonth extends ChartEvents {
+  final String entrancia;
   final int year;
   final int month;
-  ChartEventByYearMonth(this.year, this.month);
+  ChartEventByYearMonth(this.entrancia, this.year, this.month);
 }

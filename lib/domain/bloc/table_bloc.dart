@@ -28,6 +28,7 @@ class ChartBloc extends Bloc<ChartEvents, ChartStates> {
     on<ChartEventByYearMonth>((event, emit) async {
       final map = await _useCaseGetAll.useGetByYearMonthPie(
           'https://api.npoint.io/fac5d9952672f587e1c1',
+          event.entrancia,
           event.year,
           event.month);
       emit(GetChartByYearMonth(map));

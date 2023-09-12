@@ -17,8 +17,9 @@ class UseCaseGetAll {
   }
 
   Future<Map<String, dynamic>> useGetByYearMonthPie(
-      String url, int year, int month) async {
-    final map = await _tableRepository.getByYearMonthPie(url, year, month);
+      String url, String entrancia, int year, int month) async {
+    final map =
+        await _tableRepository.getByYearMonthPie(url, entrancia, year, month);
     return map;
   }
 }
